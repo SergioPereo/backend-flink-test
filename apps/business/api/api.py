@@ -35,6 +35,8 @@ class CompaniesData(APIView):
                             company.save()
                             for value in values:
                                 market_value = MarketValue(value=value, company=company)
+                                market_value.save()
+                            return Response({"detail": "Sucess", "message": "Company saved."})
                     else:
                        return Response({"detail": "Error", "message": "This is not a registered NYSE symbol."}) 
                 else:
