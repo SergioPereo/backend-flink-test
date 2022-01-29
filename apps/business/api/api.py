@@ -26,6 +26,7 @@ class CompaniesData(APIView):
                 if len(symbol) <= 10:
                     if symbol in NYSE_SYMBOLS:
                         market_list = market_values.split(',')
+                        """
                         try:
                             values = [int(value.strip()) for value in market_list]
                         except:
@@ -36,7 +37,8 @@ class CompaniesData(APIView):
                             for value in values:
                                 market_value = MarketValue(value=value, company=company)
                                 market_value.save()
-                            return Response({"detail": "Sucess", "message": "Company saved."})
+                            return Response({"detail": "Sucess", "message": "Company saved."})"""
+                        values = [int(value.strip()) for value in market_list]
                     else:
                        return Response({"detail": "Error", "message": "This is not a registered NYSE symbol."}) 
                 else:
@@ -49,7 +51,6 @@ class CompaniesData(APIView):
         try:
             companies_information = []
             market_values = []
-            count = 0
             companies = Company.objects.all()
             for company in companies:
                 for market_value in company.get_market_values().order_by('id'):
