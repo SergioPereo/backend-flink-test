@@ -9,7 +9,7 @@ import sys
 # This is the function you want to schedule - add as many as you want and then register them in the start() function below
 def obtain_nyse_symbols():
     payload = {"api_token": '61f4b1120141b7.04455674', "fmt": "json"}
-    r = requests.get('https://eodhistoricaldata.com/api/exchange-symbol-list/US', params=payload))
+    r = requests.get('https://eodhistoricaldata.com/api/exchange-symbol-list/US', params=payload)
     tickers = r.json()
     Symbol.objects.all().delete()
     for ticker in tickers:
