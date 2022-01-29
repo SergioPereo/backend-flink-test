@@ -26,7 +26,7 @@ class Command(BaseCommand):
     scheduler = BackgroundScheduler()
     scheduler.add_job(
       obtain_nyse_symbols,
-      trigger=CronTrigger(hour="*/24"),  # Every 10 seconds
+      trigger=CronTrigger(minute=="*/5"),  # Every 10 seconds
       id="obtain_nyse_symbols",  # The `id` assigned to each job MUST be unique
       max_instances=1,
       replace_existing=True,
