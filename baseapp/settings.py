@@ -45,7 +45,8 @@ BASE_APPS = [
 ]
 
 LOCAL_APPS = [
-    'apps.business'
+    'apps.business',
+    'scheduler'
 ]
 
 THIRD_APPS = [

@@ -4,7 +4,8 @@ from rest_framework.response import  Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
-from apps.business.models import Company, MarketValue
+from apps.business.models import Company, MarketValue, Symbol
+from apps.business.api.serializers import SymbolSerializer
 from django.core.exceptions import ValidationError
 
 
@@ -58,5 +59,15 @@ class CompaniesData(APIView):
                 companies_information.append({"id": company.id, "name": company.name, "description": company.description, "symbol": company.symbol, "values": market_values})
                 market_values = []
             return Response(companies_information)
+        except:
+            return Response({"error": "There was an error in the request"})
+
+class Symbols(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        try:
+            symbols = Symbol.objects.all()
+            serializer = SymbolSerializer(symbols, many=True)
+            return Response(serializer.data)
         except:
             return Response({"error": "There was an error in the request"})
