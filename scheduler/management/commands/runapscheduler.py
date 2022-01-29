@@ -28,20 +28,20 @@ def obtain_nyse_symbols():
 class Command(BaseCommand):
   help = "Runs APScheduler."
 
-  def handle(self, *args, **options):
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(
-      obtain_nyse_symbols,
-      trigger=CronTrigger(minute="*/5"),  # Every 10 seconds
-      id="obtain_nyse_symbols",  # The `id` assigned to each job MUST be unique
-      max_instances=1,
-      replace_existing=True,
-    )
-    logger.info("Added job 'obtain_nyse_symbols'.")
-    try:
-        logger.info("Starting scheduler...")
-        scheduler.start()
-    except KeyboardInterrupt:
-        logger.info("Stopping scheduler...")
-        scheduler.shutdown()
-        logger.info("Scheduler shut down successfully!")
+    def handle(self, *args, **options):
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(
+        obtain_nyse_symbols,
+        trigger=CronTrigger(minute="*/5"),  # Every 10 seconds
+        id="obtain_nyse_symbols",  # The `id` assigned to each job MUST be unique
+        max_instances=1,
+        replace_existing=True,
+        )
+        logger.info("Added job 'obtain_nyse_symbols'.")
+        try:
+            logger.info("Starting scheduler...")
+            scheduler.start()
+        except KeyboardInterrupt:
+            logger.info("Stopping scheduler...")
+            scheduler.shutdown()
+            logger.info("Scheduler shut down successfully!")
