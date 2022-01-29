@@ -10,6 +10,7 @@ from django_apscheduler import util
 from apps.business.models import Symbol
 
 import logging
+import requests
 
 logger = logging.getLogger(__name__)
 
