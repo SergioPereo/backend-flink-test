@@ -17,3 +17,6 @@ class MarketValue(models.Model):
     id = models.BigAutoField(primary_key=True, editable=False)
     value = models.DecimalField(max_digits=14, decimal_places=2)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
+
+class Symbol(models.Model):
+    value = models.CharField(max_length=50)
