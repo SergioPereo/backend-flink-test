@@ -26,8 +26,7 @@ def obtain_nyse_symbols():
 
 
 class Command(BaseCommand):
-  help = "Runs APScheduler."
-
+    help = "Runs APScheduler."
     def handle(self, *args, **options):
         scheduler = BackgroundScheduler()
         scheduler.add_job(
