@@ -65,9 +65,6 @@ class CompaniesData(APIView):
 class Symbols(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
-        try:
-            symbols = Symbol.objects.all()
-            serializer = SymbolSerializer(symbols, many=True)
-            return Response(serializer.data)
-        except:
-            return Response({"error": "There was an error in the request"})
+        symbols = Symbol.objects.all()
+        serializer = SymbolSerializer(symbols, many=True)
+        return Response(serializer.data)
