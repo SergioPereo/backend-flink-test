@@ -24,6 +24,11 @@ class Command(BaseCommand):
 
   def handle(self, *args, **options):
     scheduler = BackgroundScheduler()
-    scheduler.add_jobstore(DjangoJobStore(), "default")
-    scheduler.add_job(obtain_nyse_symbols, 'interval', hour=24, name='obtain_nyse_symbols', jobstore='default')
+    scheduler.add_job(
+      my_job,
+      trigger=CronTrigger(hour=="*/24"),  # Every 10 seconds
+      id="my_job",  # The `id` assigned to each job MUST be unique
+      max_instances=1,
+      replace_existing=True,
+    )
     scheduler.start()
