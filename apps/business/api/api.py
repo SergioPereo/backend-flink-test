@@ -16,17 +16,14 @@ class CompaniesData(APIView):
     permission_classes = [AllowAny]
     #Estoy asumiendo que la información será entregada en un json con estos nombres. Y que los valores de mercado se entregaran como un string de números separados por comas
     def post(self, request):
-        nyse_symbols = []
         name = request.data.get('name')
         description = request.data.get('description')
         symbol = request.data.get('symbol')
         market_values = request.data.get('market_values')
-        for symbol in Symbol.objects.all():
-            nyse_symbols.append(symbol.value)
         if len(name) <= 50:
             if len(description) <= 100:
                 if len(symbol) <= 10:
-                    if symbol in nyse_symbols:
+                    if Symbol.objects.filter(value=symbol).exists():
                         market_list = market_values.split(',')
                         try:
                             values = [int(value.strip()) for value in market_list]
