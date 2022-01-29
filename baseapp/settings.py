@@ -95,6 +95,8 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+print("Hi from settings: " + os.getenv("DATABASE_URL") + " " + os.environ.get("DATABASE_URL"))
+
 if DEVELOPMENT_MODE is True:
     DATABASES = {
         "default": {
