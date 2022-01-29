@@ -65,6 +65,8 @@ class CompaniesData(APIView):
 class Symbols(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
+        symbols_res = []
         symbols = Symbol.objects.all()
-        serializer = SymbolSerializer(symbols, many=True)
-        return Response(serializer.data)
+        for symbol in symbols:
+            symbols_res.append(symbol.value)
+        return Response(symbols_res)
