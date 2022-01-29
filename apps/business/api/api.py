@@ -10,22 +10,23 @@ from django.core.exceptions import ValidationError
 
 
 #Intente buscar una api en tiempo real, pero no lo conseguí. Sin embargo encontre un listado con los símbolos en la página https://www.nyse.com/listings_directory/stock, de ahí biene la lista
-NYSE_SYMBOLS = ["A", "AA", "AAC", "AAC.U", "AACG", "AACI", "AACIU", "AACOU", "AADI", "AAIC"]
 
 #API View para crear y indexar la información de las compañías
 class CompaniesData(APIView):
     permission_classes = [AllowAny]
     #Estoy asumiendo que la información será entregada en un json con estos nombres. Y que los valores de mercado se entregaran como un string de números separados por comas
     def post(self, request):
+        nyse_symbols = []
         name = request.data.get('name')
         description = request.data.get('description')
         symbol = request.data.get('symbol')
         market_values = request.data.get('market_values')
-
+        for symbol in Symbol.objects.all():
+            nyse_symbols.append(symbol.value)
         if len(name) <= 50:
             if len(description) <= 100:
                 if len(symbol) <= 10:
-                    if symbol in NYSE_SYMBOLS:
+                    if symbol in nyse_symbols:
                         market_list = market_values.split(',')
                         try:
                             values = [int(value.strip()) for value in market_list]
