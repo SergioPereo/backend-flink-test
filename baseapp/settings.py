@@ -95,8 +95,6 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-print(os.getenv("DATABASE_URL", None))
-
 if DEVELOPMENT_MODE is True:
     DATABASES = {
         "default": {
@@ -105,10 +103,10 @@ if DEVELOPMENT_MODE is True:
         }
     }
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    if os.getenv("DATABASE_URL", None) is None:
+    if os.getenv("DJANGO_DATABASE_URL", None) is None:
         raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+        "default": dj_database_url.parse(os.environ.get("DJANGO_DATABASE_URL")),
     }
 
 
